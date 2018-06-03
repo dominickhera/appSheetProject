@@ -104,21 +104,24 @@ export const dataCheck =  async (arr, end) => {
         arr.push(data.result[i]);
       }
 
-     if(data.token)
+     if(data.token != undefined)
      {
       // console.log("m");
       // console.log(data.token);
       let newEnd = "list?token=" + data.token;
-      // console.log(arr);
+     //  // console.log(arr);
       dataCheck(arr, newEnd);
      }
-     // else
-     // {
+     else
+     {
+
       idea = 2;
       // console.log(data.token);
       // console.log(arr);
+      // return arr;
+      }
       // let returnArr = await arr;
-      // return await arr;
+      return arr;
      // }
   })
 
@@ -126,19 +129,20 @@ export const dataCheck =  async (arr, end) => {
       console.log('Request failed', error)
     })
     if(idea == 2) {
-      // console.log(end);
+      // console.log(result);
       return await arr;
     }
     else
     {
-      return await result;
+      return await arr;
     }
-    // return await result;
+    // return await arr;
 }
 
 
 export const userInfoGrab =  async (arr, end) => {
-  var url = 'https://appsheettest1.azurewebsites.net/sample/detail/' + end;
+  // console.log(arr);
+  var url = "https://appsheettest1.azurewebsites.net/sample/detail/" + end;
 
 var result = await fetch(url, {
     method: 'get',
@@ -148,31 +152,60 @@ var result = await fetch(url, {
       arr.push(data);
       // console.log(arr);
       // console.log("hi");
-    // return arr;
+    return arr;
 })
 
   .catch(function(error) {
     console.log('Request failed', error)
   })
 
-  return await arr;
+  return await result;
 }
 
+
+
+
 export const getUserInfoList = async (arr) => {
-  var userNumArray = [];
-  var tempIdea = [];
-  userNumArray = dataCheck(userNumArray, "list");
-  tempIdea = await userNumArray;
-  // .then(data => console.log(data))
-  // .catch(reason => console.log(reason.message));
-  console.log(tempIdea);
+  let userObjectArray = [];
+  var listArray = [];
+  let tempIdea = [];
+
+  userObjectArray = dataCheck(await userObjectArray, "list");
+  tempIdea = await userObjectArray;
+  // console.log(tempIdea.length);
+  // console.log(tempIdea);
   for(i = 0; i < tempIdea.length; i++)
   {
-    arr = userInfoGrab(arr, tempIdea[i]);
+    listArray.push(tempIdea[i]);
+  }
+
+  console.log(listArray);
+
+   // while (tempIdea.token != undefined) {
+    // console.log(tempIdea.token);
+    // let newEnd = "list?token=" + tempIdea.token;
+    // console.log(newEnd);
+    // tempIdea = await dataCheck(tempIdea, newEnd);
+    // console.log(tempIdea.token);
+    // for(i = 0; i < tempIdea.result.length; i++)
+    // {
+    //   listArray.push(tempIdea.result[i]);
+    // }
+  // }
+ 
+
+
+  // console.log(listArray);
+  // .then(data => console.log(data))
+  // .catch(reason => console.log(reason.message));
+  // console.log(tempIdea);
+  for(i = 0; i < listArray.length; i++)
+  {
+    tempIdea = userInfoGrab(await tempIdea, listArray[i]);
     // console.log(await arr);
   }
 
-  console.log(await arr);
+  console.log(await tempIdea);
   return arr;
  
 }
