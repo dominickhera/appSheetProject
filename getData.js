@@ -57,51 +57,124 @@ export const getUserList = ()=>{
 }
 
 
-export const dataCheck = (arr, end) => {
-  var url = 'https://appsheettest1.azurewebsites.net/sample/' + end;
+// async function getMoviesFromApi(arr, end) {
+//     var url = 'https://appsheettest1.azurewebsites.net/sample/' + end;
 
-var result = fetch(url, {
+// var result = await fetch(url, {
+//     method: 'get',
+//   }).then(function(response) {
+//     return response.json(); // pass the data as promise to next then block
+//   }).then(function(data) {
+//     for(i = 0; i < data.result.length;i++)
+//     {
+//       arr.push(data.result[i]);
+//     }
+
+//    if(data.token)
+//    {
+//     let newEnd = "list?token=" + data.token;
+//     // console.log(arr);
+//     dataCheck(arr, newEnd);
+//    }
+//    else
+//    {
+//     console.log("ending");
+//     // console.log(arr);
+//     // let returnArr = await arr;
+//     return arr;
+//    }
+// })
+
+//   .catch(function(error) {
+//     console.log('Request failed', error)
+//   })
+// }
+
+
+export const dataCheck =  async (arr, end) => {
+  var url = 'https://appsheettest1.azurewebsites.net/sample/' + end;
+  let idea = 1;
+  var result = await fetch(url, {
+      method: 'get',
+    }).then(function(response) {
+      return response.json(); // pass the data as promise to next then block
+    }).then(function(data) {
+      for(i = 0; i < data.result.length;i++)
+      {
+        arr.push(data.result[i]);
+      }
+
+     if(data.token)
+     {
+      // console.log("m");
+      // console.log(data.token);
+      let newEnd = "list?token=" + data.token;
+      // console.log(arr);
+      dataCheck(arr, newEnd);
+     }
+     // else
+     // {
+      idea = 2;
+      // console.log(data.token);
+      // console.log(arr);
+      // let returnArr = await arr;
+      // return await arr;
+     // }
+  })
+
+    .catch(function(error) {
+      console.log('Request failed', error)
+    })
+    if(idea == 2) {
+      // console.log(end);
+      return await arr;
+    }
+    else
+    {
+      return await result;
+    }
+    // return await result;
+}
+
+
+export const userInfoGrab =  async (arr, end) => {
+  var url = 'https://appsheettest1.azurewebsites.net/sample/detail/' + end;
+
+var result = await fetch(url, {
     method: 'get',
   }).then(function(response) {
     return response.json(); // pass the data as promise to next then block
   }).then(function(data) {
-    for(i = 0; i < data.result.length;i++)
-    {
-      arr.push(data.result[i]);
-    }
-    // var rocketId = data.rocket.rocket_id;
-    console.log(data);
-    // console.log(rocketId, '\n');
-   var nextToken = data.token;
+      arr.push(data);
+      // console.log(arr);
+      // console.log("hi");
+    // return arr;
+})
 
-   if(data.token)
-   {
-    let newEnd = "list?token=" + nextToken;
-    // console.log(arr);
-    dataCheck(arr, newEnd);
-   }
-   else
-   {
-    return arr;
-   }
-   // console.log(nextToken);
-      // return fetch('https://appsheettest1.azurewebsites.net/sample/list?token=' + nextToken);
-    // return fetch('https://api.spacexdata.com/v2/rockets/' + rocketId); // make a 2nd request and return a promise
-  })
-  // .then(function(response) {
-  //   return response.json();
-  // })
   .catch(function(error) {
     console.log('Request failed', error)
   })
 
-// I'm using the result variable to show that you can continue to extend the chain from the returned promise
-// result.then(function(r) {
-  // return r.result;
-  // console.log(r.result); // 2nd request result
-// });
-  return arr;
+  return await arr;
 }
 
+export const getUserInfoList = async (arr) => {
+  var userNumArray = [];
+  var tempIdea = [];
+  userNumArray = dataCheck(userNumArray, "list");
+  tempIdea = await userNumArray;
+  // .then(data => console.log(data))
+  // .catch(reason => console.log(reason.message));
+  console.log(tempIdea);
+  for(i = 0; i < tempIdea.length; i++)
+  {
+    arr = userInfoGrab(arr, tempIdea[i]);
+    // console.log(await arr);
+  }
+
+  console.log(await arr);
+  return arr;
+ 
+}
 
 

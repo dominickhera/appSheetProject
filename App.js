@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {dataCheck} from './getData.js';
+import {getUserInfoList} from './getData.js';
 
 import { FlatList, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
@@ -14,9 +14,13 @@ export default class App extends React.Component {
   componentDidMount(){
 
     var tempArray = [];
-    tempArray = dataCheck(tempArray, "list");
+    tempArray = getUserInfoList(tempArray);
     // let temp = dataCheck();
-    console.log(tempArray);
+    // console.log( tempArray);
+    // Promise.all([tempArray]).then(res => {
+    //   console.log(res);
+    // })
+    // this.tempArray.then(console.log);
     // let temp = "temp";
     this.setState({
           isLoading: false,
