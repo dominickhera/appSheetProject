@@ -112,14 +112,14 @@ export const dataCheck =  async (arr, end) => {
      //  // console.log(arr);
       dataCheck(arr, newEnd);
      }
-     else
-     {
+    //  else
+    //  {
 
-      idea = 2;
+      // idea = 2;
       // console.log(data.token);
       // console.log(arr);
       // return arr;
-      }
+      // }
       // let returnArr = await arr;
       return arr;
      // }
@@ -128,15 +128,15 @@ export const dataCheck =  async (arr, end) => {
     .catch(function(error) {
       console.log('Request failed', error)
     })
-    if(idea == 2) {
-      // console.log(result);
-      return await arr;
-    }
-    else
-    {
-      return await arr;
-    }
-    // return await arr;
+    // if(idea == 2) {
+    //   // console.log(result);
+    //   return await arr;
+    // }
+    // else
+    // {
+    //   return await arr;
+    // }
+    return await arr;
 }
 
 
@@ -179,7 +179,7 @@ export const getUserInfoList = async (arr) => {
     listArray.push(tempIdea[i]);
   }
 
-  console.log(listArray);
+  // console.log(listArray);
 
    // while (tempIdea.token != undefined) {
     // console.log(tempIdea.token);
@@ -205,7 +205,7 @@ export const getUserInfoList = async (arr) => {
     // console.log(await arr);
   }
 
-  console.log(await tempIdea);
+  // console.log(await tempIdea);
   return arr;
  
 }
